@@ -41,28 +41,30 @@ export default function UsersTable({
 
   return (
     <div className={className}>
-      <div className="py-3 flex items-center justify-between">
-        <h3 className="text-xl text-black dark:text-white font-medium">
-          {pickedUserIds.length === 0
-            ? `Всего пользователей: ${users.length}`
-            : `Выбрано пользователей: ${pickedUserIds.length}`}
-        </h3>
-        {pickedUserIds.length !== 0 && (
-          <div className="flex gap-x-2">
-            <button
-              onClick={() => onClearUsersContext?.(pickedUserIds)}
-              className="w-10 h-10 p-2"
-            >
-              <AiOutlineClear className="text-white w-full h-full" />
-            </button>
-            <button
-              onClick={() => onDeleteUsers?.(pickedUserIds)}
-              className="w-10 h-10 p-2"
-            >
-              <AiFillDelete className="text-white w-full h-full" />
-            </button>
-          </div>
-        )}
+      <div className="py-3 mb-3 h-12 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <h3 className="text-xl text-black dark:text-white font-medium">
+            {pickedUserIds.length === 0
+              ? `Всего пользователей: ${users.length}`
+              : `Выбрано пользователей: ${pickedUserIds.length}`}
+          </h3>
+          {pickedUserIds.length !== 0 && (
+            <div className="px-2 py-1 rounded-lg bg-slate-600 flex gap-x-2">
+              <button
+                onClick={() => onClearUsersContext?.(pickedUserIds)}
+                className="w-10 h-10 p-2"
+              >
+                <AiOutlineClear className="text-white w-full h-full" />
+              </button>
+              <button
+                onClick={() => onDeleteUsers?.(pickedUserIds)}
+                className="w-10 h-10 p-2"
+              >
+                <AiFillDelete className="text-white w-full h-full" />
+              </button>
+            </div>
+          )}
+        </div>
         <label
           htmlFor="search"
           className="flex items-center gap-4 justify-between bg-gray-500 px-3 py-2 w-[250px] border border-black/50 rounded-md"
@@ -97,6 +99,9 @@ export default function UsersTable({
               </th>
               <th scope="col" className="px-6 py-3">
                 Роль
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Кол-во сообщений
               </th>
               <th scope="col" className="px-6 py-3">
                 Дата регистрации

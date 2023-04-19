@@ -20,6 +20,25 @@ export function UsersTableItem({
   onToggleBanUsers,
 }: Props) {
   const userRoles = user.roles.map(role => role.value).join(', ');
+
+  const actions = [
+    {
+      title: 'Перейти',
+    },
+    {
+      title: 'Очистить контекст',
+    },
+    {
+      title: !user.banned ? 'Заблокировать' : 'Разблокировать',
+      className: !user.banned ? 'text-red-500' : 'text-green-500',
+    },
+    {
+      title: 'Удалить',
+      className: 'text-red-500',
+      onClick: onToggleBanUsers,
+    },
+  ];
+
   return (
     <tr
       className={`${
@@ -38,34 +57,17 @@ export function UsersTableItem({
       <td className="px-6 py-4">{user.telegramUsername}</td>
       <td className="px-6 py-4">{user.telegramName}</td>
       <td className="px-6 py-4">{userRoles}</td>
+      <td className="px-6 py-4">{user.messagesCount}</td>
       <td className="px-6 py-4">{getFormattedDate(user.createdAt)}</td>
       <td className="px-6 py-4">
         {user.banned && (
-          <div className="py-1 bg-red-500 rounded-md text-white flex items-center justify-center">
+          <div className="py-1 px-2 bg-red-500 rounded-md text-white flex items-center justify-center">
             Заблокирован
           </div>
         )}
       </td>
       <td className="px-2">
-        <ActionsMenu
-          actions={[
-            {
-              title: 'Перейти',
-            },
-            {
-              title: 'Очистить контекст',
-            },
-            {
-              title: !user.banned ? 'Заблокировать' : 'Разблокировать',
-              className: !user.banned ? 'text-red-500' : 'text-green-500',
-            },
-            {
-              title: 'Удалить',
-              className: 'text-red-500',
-              onClick: onToggleBanUsers,
-            },
-          ]}
-        />
+        <ActionsMenu actions={actions} />
       </td>
     </tr>
   );

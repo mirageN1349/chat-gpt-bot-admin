@@ -10,6 +10,7 @@ export type GetUserDTO = {
   telegramName: string;
   createdAt: string;
   updatedAt: string;
+  messagesCount: number;
   roles: UserRoleDTO[];
 };
 
