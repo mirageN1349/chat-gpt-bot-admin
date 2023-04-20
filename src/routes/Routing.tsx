@@ -6,6 +6,7 @@ import { Error404Page } from '../pages/404';
 import { TariffsPage } from '../pages/tariffs';
 import { AuthPage } from '../pages/auth';
 import { PublicLayout } from '../layouts/Public';
+import { MailingsPage } from '../pages/mailings';
 
 export default function Routing() {
   const privateRoutes = {
@@ -16,7 +17,7 @@ export default function Routing() {
         path: '/',
         element: <MainPage />,
       },
-
+      { path: '/mailings', element: <MailingsPage /> },
       { path: '/users', element: <UsersPage /> },
       { path: '/tariffs', element: <TariffsPage /> },
       {

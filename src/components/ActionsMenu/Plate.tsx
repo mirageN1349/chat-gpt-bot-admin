@@ -2,12 +2,12 @@ import React, { useState, forwardRef } from 'react';
 import Transition from '../Transition';
 import { Action } from './types';
 
-type Props = {
+type Props = React.HTMLAttributes<HTMLDivElement> & {
   actions: Action[];
 };
 
 function PlateComponent(
-  { actions }: Props,
+  { actions, ...props }: Props,
   forwardedRef: React.Ref<HTMLDivElement>
 ) {
   const [transition, setTransition] = useState(false);
@@ -22,6 +22,7 @@ function PlateComponent(
         className={`${
           transition ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         } absolute w-[200px] transition-all z-50 will-change-[opacity] overflow-hidden bg-white rounded-md`}
+        {...props}
       >
         {actions.map((action, index) => (
           <button

@@ -9,9 +9,10 @@ import { Plate } from './Plate';
 type Props = {
   className?: string;
   actions: Action[];
+  closeOnClick?: boolean;
 };
 
-export function ActionsMenu({ actions, className }: Props) {
+export function ActionsMenu({ actions, className, closeOnClick }: Props) {
   const [opened, setOpened] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const promptRef = useRef<HTMLDivElement>(null);
@@ -49,7 +50,11 @@ export function ActionsMenu({ actions, className }: Props) {
       </button>
       {opened &&
         createPortal(
-          <Plate ref={promptRef} actions={actions} />,
+          <Plate
+            ref={promptRef}
+            onClick={() => closeOnClick && setOpened(false)}
+            actions={actions}
+          />,
           document.body
         )}
     </div>

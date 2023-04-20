@@ -1,24 +1,44 @@
-import { AiOutlineSearch, AiFillDelete, AiOutlineClear } from 'react-icons/ai';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { GetUsersDTO } from '../../../@types/dto/users';
-import { Checkbox } from '../../../components/Checkbox';
-import { useState } from 'react';
 import { UsersTableItem } from './Item';
 
 type Props = {
   className?: string;
   users: GetUsersDTO;
-  onToggleBanUsers?: (banData: { id: string; isBanned: boolean }) => void;
-  onDeleteUsers?: (userIds: string[]) => void;
-  onClearUsersContext?: (userIds: string[]) => void;
+  onBanUser: (banData: { id: string; isBanned: boolean }) => void;
+  onDeleteUsers: (userIds: string) => void;
+  onClearUsersContext: (userIds: string) => void;
 };
 
 export default function UsersTable({
   className,
   users,
-  onToggleBanUsers,
   onDeleteUsers,
+  onBanUser,
   onClearUsersContext,
 }: Props) {
+  const userActions = (user: GetUsersDTO[number]) => {
+    return [
+      {
+        title: 'Перейти',
+      },
+      {
+        title: 'Очистить контекст',
+        onClick: () => onClearUsersContext(user.id),
+      },
+      {
+        title: !user.banned ? 'Заблокировать' : 'Разблокировать',
+        className: !user.banned ? 'text-red-500' : 'text-green-500',
+        onClick: () => onBanUser({ id: user.id, isBanned: user.banned }),
+      },
+      {
+        title: 'Удалить',
+        className: 'text-red-500',
+        onClick: () => onDeleteUsers(user.id),
+      },
+    ];
+  };
+
   return (
     <div className={className}>
       <div className="py-3 mb-3 h-12 flex items-center justify-between">
@@ -72,7 +92,11 @@ export default function UsersTable({
               <div className="text-white">Пользователи отсутствуют</div>
             )}
             {users.map(user => (
-              <UsersTableItem key={user.id} user={user} />
+              <UsersTableItem
+                key={user.id}
+                user={user}
+                actions={userActions(user)}
+              />
             ))}
           </tbody>
         </table>

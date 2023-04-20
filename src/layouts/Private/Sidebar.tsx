@@ -16,7 +16,7 @@ type Props = {
 export function Sidebar({ className = '', links, activeLink }: Props) {
   return (
     <aside
-      className={`${className} fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0`}
+      className={`${className} fixed top-0 left-0 z-10 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0`}
     >
       <div className="h-full px-3 pb-4 flex flex-col justify-between pb-10 overflow-y-auto bg-gray-50 dark:bg-gray-800">
         <div>

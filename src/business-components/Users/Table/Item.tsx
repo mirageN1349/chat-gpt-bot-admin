@@ -5,39 +5,24 @@ import { getFormattedDate } from '../../../utils/getFormattedDate';
 import { HiDotsVertical } from 'react-icons/hi';
 import { ActionsMenu } from '../../../components/ActionsMenu';
 import { useNavigate } from 'react-router';
+import { Action } from '../../../components/ActionsMenu/types';
 
 type Props = {
   user: GetUsersDTO[number];
   picked?: boolean;
+  actions?: Action[];
   onPickUser?: () => void;
   onToggleBanUsers?: () => void;
 };
 
 export function UsersTableItem({
   user,
+  actions,
   picked = false,
   onPickUser,
   onToggleBanUsers,
 }: Props) {
   const userRoles = user.roles.map(role => role.value).join(', ');
-
-  const actions = [
-    {
-      title: 'Перейти',
-    },
-    {
-      title: 'Очистить контекст',
-    },
-    {
-      title: !user.banned ? 'Заблокировать' : 'Разблокировать',
-      className: !user.banned ? 'text-red-500' : 'text-green-500',
-    },
-    {
-      title: 'Удалить',
-      className: 'text-red-500',
-      onClick: onToggleBanUsers,
-    },
-  ];
 
   return (
     <tr
@@ -63,9 +48,11 @@ export function UsersTableItem({
           </div>
         )}
       </td>
-      <td className="px-2">
-        <ActionsMenu actions={actions} />
-      </td>
+      {actions && (
+        <td className="px-2">
+          <ActionsMenu closeOnClick actions={actions} />
+        </td>
+      )}
     </tr>
   );
 }

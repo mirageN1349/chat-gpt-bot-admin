@@ -1,5 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
+import Transition from './Transition';
 
 type Props = React.PropsWithChildren & {
   open: boolean;
@@ -8,8 +9,16 @@ type Props = React.PropsWithChildren & {
 
 export function Modal({ open, children, onClose }: Props) {
   const modal = (
-    <div className="z-100 fixed left-0 top-0 w-full h-full">{children}</div>
+    <>
+      <div
+        className="z-20 bg-black/40 fixed left-0 top-0 w-full h-full"
+        onClick={onClose}
+      ></div>
+      {children}
+    </>
   );
 
-  return createPortal(modal, document.body);
+  return (
+    <Transition mount={open}>{createPortal(modal, document.body)}</Transition>
+  );
 }

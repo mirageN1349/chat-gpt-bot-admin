@@ -5,44 +5,35 @@ import { FiUsers } from 'react-icons/fi';
 import { AiOutlineBarChart, AiOutlineMail } from 'react-icons/ai';
 import { TbClipboardList } from 'react-icons/tb';
 
-import {
-  Outlet,
-  useLocation,
-  redirect,
-  useNavigate,
-  Navigate,
-} from 'react-router';
+import { Outlet, useLocation, useNavigate, Navigate } from 'react-router';
 
-import { selectIsAuth } from '../../store/selectors/auth';
-import { useSelector } from 'react-redux';
 import { useGetCurrentUserQuery } from '../../api/auth';
 
 const links = [
-  {
-    icon: <AiOutlineBarChart />,
-    label: 'Статистика',
-    href: '/',
-  },
   {
     icon: <FiUsers />,
     label: 'Пользователи',
     href: '/users',
   },
   {
-    icon: <TbClipboardList />,
-    label: 'Тарифы',
-    href: '/tariffs',
+    icon: <AiOutlineMail />,
+    label: 'Рассылки 🔧',
+    href: '/mailings',
   },
   {
-    icon: <AiOutlineMail />,
-    label: 'Рассылки',
-    href: '/mailing ',
+    icon: <AiOutlineBarChart />,
+    label: 'Статистика 🔧',
+    href: '/',
+  },
+  {
+    icon: <TbClipboardList />,
+    label: 'Тарифы 🔧',
+    href: '/tariffs',
   },
 ];
 
 export function PrivateLayout() {
   const location = useLocation();
-  const navigate = useNavigate();
 
   const { data: currentUser, isLoading } = useGetCurrentUserQuery();
 
