@@ -6,6 +6,7 @@ import { Error404Page } from '../pages/404';
 import { TariffsPage } from '../pages/tariffs';
 import { AuthPage } from '../pages/auth';
 import { PublicLayout } from '../layouts/Public';
+import { CreateMailingsPage } from '../pages/mailings/create';
 import { MailingsPage } from '../pages/mailings';
 
 export default function Routing() {
@@ -18,6 +19,8 @@ export default function Routing() {
         element: <MainPage />,
       },
       { path: '/mailings', element: <MailingsPage /> },
+      { path: '/mailings/create', element: <CreateMailingsPage /> },
+      // { path: '/mailings', element: <CreateMailingsPage /> },
       { path: '/users', element: <UsersPage /> },
       { path: '/tariffs', element: <TariffsPage /> },
       {

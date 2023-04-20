@@ -23,7 +23,7 @@ const links = [
   {
     icon: <AiOutlineBarChart />,
     label: 'Статистика 🔧',
-    href: '/',
+    href: '/stats',
   },
   {
     icon: <TbClipboardList />,
