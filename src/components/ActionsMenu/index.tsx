@@ -1,14 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useClickOutside } from '../hooks/useClickOutside';
+import { useClickOutside } from '../../hooks/useClickOutside';
 import { HiDotsVertical } from 'react-icons/hi';
 import { createPortal } from 'react-dom';
-
-type Action = {
-  title: React.ReactNode;
-  disabled?: boolean;
-  onClick?: () => void;
-  className?: string;
-};
+import Transition from '../Transition';
+import { Action } from './types';
+import { Plate } from './Plate';
 
 type Props = {
   className?: string;
@@ -40,26 +36,6 @@ export function ActionsMenu({ actions, className }: Props) {
     }
   }, [opened]);
 
-  const prompt = (
-    <div
-      ref={promptRef}
-      className="absolute w-[200px] z-50 overflow-hidden bg-white rounded-md"
-    >
-      {actions.map((action, index) => (
-        <button
-          key={index}
-          className={`${
-            action.className || ''
-          } hover:bg-slate-200 text-black transition-all w-full py-2 mx-auto`}
-          onClick={action.onClick}
-          disabled={action.disabled}
-        >
-          {action.title}
-        </button>
-      ))}
-    </div>
-  );
-
   return (
     <div>
       <button
@@ -71,7 +47,11 @@ export function ActionsMenu({ actions, className }: Props) {
       >
         <HiDotsVertical className="w-full h-wull" />
       </button>
-      {opened && createPortal(prompt, document.body)}
+      {opened &&
+        createPortal(
+          <Plate ref={promptRef} actions={actions} />,
+          document.body
+        )}
     </div>
   );
 }
