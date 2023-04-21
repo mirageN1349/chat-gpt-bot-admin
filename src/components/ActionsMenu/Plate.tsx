@@ -21,7 +21,7 @@ function PlateComponent(
         ref={forwardedRef}
         className={`${
           transition ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        } absolute w-[200px] transition-all z-50 will-change-[opacity] overflow-hidden bg-white rounded-md`}
+        } absolute shadow-md w-[200px] transition-all z-50 will-change-[opacity] overflow-hidden bg-white rounded-md`}
         {...props}
       >
         {actions.map((action, index) => (
