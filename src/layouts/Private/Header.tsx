@@ -1,5 +1,3 @@
-import { useLocation } from 'react-router';
-
 type Props = {
   title?: string;
 };

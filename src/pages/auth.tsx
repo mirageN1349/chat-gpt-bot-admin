@@ -14,7 +14,9 @@ export function AuthPage() {
       navigate('/users', {
         replace: true,
       });
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -1,7 +1,5 @@
 import Routing from './routes/Routing';
 
-type Props = {};
-
-export function App(props: Props) {
+export function App() {
   return <Routing />;
 }

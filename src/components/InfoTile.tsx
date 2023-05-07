@@ -1,9 +1,10 @@
+import { ReactNode } from 'react';
 import { BsArrowUp } from 'react-icons/bs';
 import { ActionsMenu } from './ActionsMenu';
 
 type Props = {
   title: string;
-  value: React.ReactNode;
+  value: ReactNode;
   percentage?: number;
 };
 
@@ -35,7 +36,7 @@ export function InfoTile({ title, value, percentage }: Props) {
             <BsArrowUp
               className={`${percentage > 0 ? '' : 'rotate-180'} w-4 h-4`}
             />
-            {percentage} %
+            {percentage}%
           </div>
         )}
       </div>

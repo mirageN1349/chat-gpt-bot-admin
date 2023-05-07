@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, ReactNode, useState } from 'react';
 
 export interface TransitionProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   mount?: boolean;
   duration?: number;
   onMount?: () => void;

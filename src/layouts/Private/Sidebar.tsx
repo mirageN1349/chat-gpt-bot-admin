@@ -1,7 +1,8 @@
+import React from 'react';
 import { BiLogOut } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 
-type Link = {
+type SidebarLink = {
   icon: React.ReactElement;
   label: string;
   href: string;
@@ -10,8 +11,8 @@ type Link = {
 type Props = {
   className?: string;
   activeLink?: string;
-  topLinks?: Link[];
-  bottomLinks?: Link[];
+  topLinks?: SidebarLink[];
+  bottomLinks?: SidebarLink[];
 };
 
 export function Sidebar({
@@ -58,7 +59,10 @@ export function Sidebar({
             <span>{link.label}</span>
           </Link>
         ))}
-        <button className="border-2 rounded-xl border-[#ECECEE] text-black/80 p-4 mt-8 flex w-full items-center font-semibold">
+        <button
+          type="button"
+          className="border-2 rounded-xl border-[#ECECEE] text-black/80 p-4 mt-8 flex w-full items-center font-semibold"
+        >
           <BiLogOut className="w-6 h-6 mr-2" />
           Выход
         </button>

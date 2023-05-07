@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { Modal } from '../../components/Modal';
 import { GrClose } from 'react-icons/gr';
 
@@ -18,7 +18,7 @@ export function BanModal({
   const [transition, setTransition] = useState(false);
   const [input, setInput] = useState('');
 
-  const handleChangeInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
   };
 

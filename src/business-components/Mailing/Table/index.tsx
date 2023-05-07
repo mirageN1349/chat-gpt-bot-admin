@@ -30,7 +30,7 @@ export default function MailingsTable({ className = '', mailings }: Props) {
         <div className="w-[calc((100%-40px)/4)] text-left">Статус</div>
         <div className="w-[calc((100%-40px)/4)] text-left">Дата создания</div>
         <div className="w-[calc((100%-40px)/4)] text-left">Дата отправки</div>
-        <div className="w-10"></div>
+        <div className="w-10" />
       </div>
       <div>
         {mailings.length === 0 && <div>Рассылки отсутствуют</div>}

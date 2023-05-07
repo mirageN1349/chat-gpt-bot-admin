@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { BsArrowUp, BsPlus, BsSearch } from 'react-icons/bs';
+import { BsPlus, BsSearch } from 'react-icons/bs';
 
 import {
   useBanUserMutation,
@@ -10,8 +10,6 @@ import {
 import UsersTable from '../business-components/Users/Table';
 import { BanModal } from '../business-components/Users/BanModal';
 import { UnbanModal } from '../business-components/Users/UnbanModal';
-import { ActionsMenu } from '../components/ActionsMenu';
-import { GetUserDTO, UserRoleDTO } from '../@types/dto/users';
 import { InfoTile } from '../components/InfoTile';
 import { DeleteModal } from '../business-components/Users/DeleteModal';
 import { ClearContextModal } from '../business-components/Users/ClearContextModal';
@@ -122,8 +120,12 @@ export function UsersPage() {
     <div className="w-full">
       <header className="mb-10 flex items-center justify-between">
         <div className="text-2xl font-medium">Пользователи</div>
-        <button className="flex px-4 py-2 active:scale-95 transition-all  gap-2 hover:bg-indigo-500 rounded-lg bg-indigo-600 text-white items-center">
-          <BsPlus className="w-6 h-6" /> Добавить
+        <button
+          type="button"
+          className="flex px-4 py-2 active:scale-95 transition-all  gap-2 hover:bg-indigo-500 rounded-lg bg-indigo-600 text-white items-center"
+        >
+          <BsPlus className="w-6 h-6" />
+          Добавить
         </button>
       </header>
       <div className="grid gap-6 grid-cols-3">

@@ -29,6 +29,8 @@ export function SendModal({
 
         <div className="w-fill gap-2 flex items-center">
           <button
+            type="button"
+            onClick={onSubmit}
             disabled={isLoading}
             className="px-4 text-xl bg-red-500 text-white py-2 rounded-md"
           >

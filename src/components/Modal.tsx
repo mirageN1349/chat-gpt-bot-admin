@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
 import Transition from './Transition';
 
-type Props = React.PropsWithChildren & {
+type Props = PropsWithChildren & {
   open: boolean;
   onClose?: () => void;
   onTransitionMount?: () => void;
@@ -28,7 +28,7 @@ export function Modal({
           transition ? 'opacity-1' : 'opacity-0'
         } z-20 bg-black/40 transition-all fixed left-0 top-0 w-full h-full`}
         onClick={onClose}
-      ></div>
+      />
       {children}
     </>
   );

@@ -1,4 +1,6 @@
-type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+import { InputHTMLAttributes } from 'react';
+
+type Props = InputHTMLAttributes<HTMLInputElement> & {
   id: string;
 };
 
@@ -11,7 +13,7 @@ export function Checkbox({ className = '', id, checked, ...props }: Props) {
       <label
         htmlFor={id}
         className={`${
-          !!checked ? 'bg-blue-500' : 'bg-white'
+          checked ? 'bg-blue-500' : 'bg-white'
         } rounded-sm block w-3 h-3 cursor-pointer`}
       />
     </div>

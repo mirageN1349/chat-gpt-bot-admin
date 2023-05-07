@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, RefObject } from 'react';
 
 type Props<T extends HTMLElement> = {
-  ref: React.RefObject<T>;
+  ref: RefObject<T>;
   handler: (event: MouseEvent | TouchEvent) => void;
-  exceptions?: React.RefObject<HTMLElement>[];
+  exceptions?: RefObject<HTMLElement>[];
 };
 
 export function useClickOutside<T extends HTMLElement>({

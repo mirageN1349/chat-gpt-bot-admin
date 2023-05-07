@@ -38,14 +38,14 @@ export const authSlice = createSlice({
         (state, action) => {
           state.isAuth = true;
           state.currentUser = action.payload;
-        }
+        },
       )
       .addMatcher(
         authApi.endpoints.getCurrentUser.matchRejected,
         (state, action) => {
           if (action.error.name === 'ConditionError') return;
           state.isAuth = false;
-        }
+        },
       );
   },
 });

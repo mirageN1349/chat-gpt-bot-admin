@@ -57,7 +57,9 @@ export function MailingsPage() {
       <header className="mb-10 flex items-center justify-between">
         <div className="text-2xl font-medium">Рассылки</div>
         <button className="flex px-4 py-2 active:scale-95 transition-all  gap-2 hover:bg-indigo-500 rounded-lg bg-indigo-600 text-white items-center">
-          <BsPlus className="w-6 h-6" /> Создать
+          <BsPlus className="w-6 h-6" />
+          {' '}
+          Создать
         </button>
       </header>
 

@@ -11,7 +11,7 @@ type Props = {
   closeOnClick?: boolean;
 };
 
-export function ActionsMenu({ actions, className, closeOnClick }: Props) {
+export function ActionsMenu({ actions, className = '', closeOnClick }: Props) {
   const [opened, setOpened] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const promptRef = useRef<HTMLDivElement>(null);
@@ -23,7 +23,7 @@ export function ActionsMenu({ actions, className, closeOnClick }: Props) {
   });
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(({ isIntersecting }) => {
         if (!isIntersecting) {
           setOpened(false);

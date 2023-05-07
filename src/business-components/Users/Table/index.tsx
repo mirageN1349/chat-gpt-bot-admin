@@ -16,31 +16,29 @@ export default function UsersTable({
   onBanUser,
   onClearUsersContext,
 }: Props) {
-  const userActions = (user: GetUsersDTO[number]) => {
-    return [
-      {
-        title: 'Перейти',
-        className: 'hover:text-indigo-600 hover:bg-indigo-600/10',
-      },
-      {
-        title: 'Очистить контекст',
-        onClick: () => onClearUsersContext(user.id),
-        className: 'hover:text-indigo-600 hover:bg-indigo-600/10',
-      },
-      {
-        title: !user.banned ? 'Заблокировать' : 'Разблокировать',
-        className: `${
-          !user.banned ? 'text-red-500' : 'text-green-500'
-        } hover:bg-indigo-600/10`,
-        onClick: () => onBanUser({ id: user.id, isBanned: user.banned }),
-      },
-      {
-        title: 'Удалить',
-        className: 'text-red-500 hover:bg-indigo-600/10',
-        onClick: () => onDeleteUsers(user.id),
-      },
-    ];
-  };
+  const userActions = (user: GetUsersDTO[number]) => [
+    {
+      title: 'Перейти',
+      className: 'hover:text-indigo-600 hover:bg-indigo-600/10',
+    },
+    {
+      title: 'Очистить контекст',
+      onClick: () => onClearUsersContext(user.id),
+      className: 'hover:text-indigo-600 hover:bg-indigo-600/10',
+    },
+    {
+      title: !user.banned ? 'Заблокировать' : 'Разблокировать',
+      className: `${
+        !user.banned ? 'text-red-500' : 'text-green-500'
+      } hover:bg-indigo-600/10`,
+      onClick: () => onBanUser({ id: user.id, isBanned: user.banned }),
+    },
+    {
+      title: 'Удалить',
+      className: 'text-red-500 hover:bg-indigo-600/10',
+      onClick: () => onDeleteUsers(user.id),
+    },
+  ];
 
   return (
     <div className={`${className} rounded-xl border-2 border-[#ECECEE] w-full`}>
@@ -53,7 +51,7 @@ export default function UsersTable({
         <div className="w-[calc((100%-40px)/4)] text-left">
           Кол-во сообщений
         </div>
-        <div className="w-10"></div>
+        <div className="w-10" />
       </div>
       <div>
         {users.length === 0 && (

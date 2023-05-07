@@ -1,5 +1,7 @@
+import { ReactNode } from 'react';
+
 export type Action = {
-  title: React.ReactNode;
+  title: ReactNode;
   disabled?: boolean;
   onClick?: () => void;
   className?: string;
