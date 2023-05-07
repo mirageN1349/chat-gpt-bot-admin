@@ -1,5 +1,6 @@
 import React from 'react';
 import { BiLogOut } from 'react-icons/bi';
+import { BsRobot } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 type SidebarLink = {
@@ -26,8 +27,9 @@ export function Sidebar({
       className={`${className} flex flex-col justify-between py-9 h-screen pl-7 pr-2 w-[340px] border-r-2 border-r-[#ECECEE]`}
     >
       <div className="w-full">
-        <div className="px-4 h-8 mb-9 font-semibold text-lg">
-          <h3 className="">NikoGPT</h3>
+        <div className="px-4 flex items-center h-8 mb-9 font-semibold text-lg">
+          <BsRobot className="h-8 w-8 mr-2" />
+          <h3 className="mt-1">NikoGPT</h3>
         </div>
         {topLinks?.map(link => (
           <Link

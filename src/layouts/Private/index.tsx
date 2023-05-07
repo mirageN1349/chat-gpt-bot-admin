@@ -49,11 +49,11 @@ export function PrivateLayout() {
     link => link.href === location.pathname
   );
 
-  if (isLoading) return <div className="font-bold">Загрузка...</div>;
+  // if (isLoading) return <div className="font-bold">Загрузка...</div>;
 
-  if (!isLoading && !currentUser) {
-    return <Navigate to="/auth/sigin" replace />;
-  }
+  // if (!isLoading && !currentUser) {
+  //   return <Navigate to="/auth/sigin" replace />;
+  // }
 
   return (
     <div className="w-full min-h-full flex">
