@@ -46,7 +46,7 @@ export function PrivateLayout() {
   const { data: currentUser, isLoading } = useGetCurrentUserQuery();
 
   const activeLink = [...topLinks, ...bottomLinks].find(
-    link => link.href === location.pathname,
+    link => link.href === location.pathname
   );
 
   if (isLoading) return <div className="font-bold">Загрузка...</div>;
