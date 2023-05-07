@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { BsArrowUp, BsPlus, BsSearch } from 'react-icons/bs';
+
 import {
   useBanUserMutation,
   useGetUsersQuery,
@@ -8,10 +10,20 @@ import {
 import UsersTable from '../business-components/Users/Table';
 import { BanModal } from '../business-components/Users/BanModal';
 import { UnbanModal } from '../business-components/Users/UnbanModal';
+import { ActionsMenu } from '../components/ActionsMenu';
+import { GetUserDTO, UserRoleDTO } from '../@types/dto/users';
+import { InfoTile } from '../components/InfoTile';
+import { DeleteModal } from '../business-components/Users/DeleteModal';
+import { ClearContextModal } from '../business-components/Users/ClearContextModal';
 
+// FIXME: Мне это решение не нравится
 type Modals =
   | {
       type: 'ban';
+      userId: string;
+    }
+  | {
+      type: 'clearContext';
       userId: string;
     }
   | {
@@ -30,6 +42,20 @@ export function UsersPage() {
   const [banUser, { isLoading: banUserLoading }] = useBanUserMutation();
   const [unbanUser, { isLoading: unbanUserLoading }] = useUnbanUserMutation();
 
+  const onDeleteUser = (userId: string) => {
+    setModal({
+      type: 'delete',
+      userId,
+    });
+  };
+
+  const onClearUserContext = (userId: string) => {
+    setModal({
+      type: 'clearContext',
+      userId,
+    });
+  };
+
   const onBanUser = (banData: { id: string; isBanned: boolean }) => {
     if (banData.isBanned) {
       setModal({
@@ -44,8 +70,26 @@ export function UsersPage() {
     }
   };
 
-  const closeModal = () => {
-    setModal(null);
+  const handleDeleteUser = async () => {
+    if (!modal) return;
+    try {
+      console.log('delete user');
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setModal(null);
+    }
+  };
+
+  const handleClearUserContext = async () => {
+    if (!modal) return;
+    try {
+      console.log('clear user context');
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setModal(null);
+    }
   };
 
   const handleBanUser = async (banReason: string) => {
@@ -70,21 +114,46 @@ export function UsersPage() {
     }
   };
 
+  const closeModal = () => {
+    setModal(null);
+  };
+
   return (
     <div className="w-full">
+      <header className="mb-10 flex items-center justify-between">
+        <div className="text-2xl font-medium">Пользователи</div>
+        <button className="flex px-4 py-2 active:scale-95 transition-all  gap-2 hover:bg-indigo-500 rounded-lg bg-indigo-600 text-white items-center">
+          <BsPlus className="w-6 h-6" /> Добавить
+        </button>
+      </header>
+      <div className="grid gap-6 grid-cols-3">
+        <InfoTile title="Новые пользователи" value={27} />
+        <InfoTile title="Всего пользователей" value={1584} percentage={5} />
+        <InfoTile title="Новых сообщений" value={268} percentage={-12} />
+      </div>
+      <div className="my-8 flex justify-end">
+        <label
+          htmlFor="search-input"
+          className="rounded-lg w-[300px] gap-2 py-2 px-4 placeholder:text-[#8C8E90] flex items-center border border-[#E0E0E0]"
+        >
+          <BsSearch className="text-[#8C8E90]" />
+          <input
+            id="search-input"
+            className="outline-none"
+            placeholder="Поиск"
+          />
+        </label>
+      </div>
       {isLoading && <div>Загрузка...</div>}
       {users && (
         <UsersTable
           users={users}
           onBanUser={onBanUser}
-          onDeleteUsers={function (userIds: string): void {
-            throw new Error('Function not implemented.');
-          }}
-          onClearUsersContext={function (userIds: string): void {
-            throw new Error('Function not implemented.');
-          }}
+          onDeleteUsers={onDeleteUser}
+          onClearUsersContext={onClearUserContext}
         />
       )}
+
       <BanModal
         open={modal?.type === 'ban'}
         onSubmit={data => handleBanUser(data)}
@@ -93,7 +162,19 @@ export function UsersPage() {
       />
       <UnbanModal
         open={modal?.type === 'unban'}
-        onSubmit={() => handleUnbanUser()}
+        onSubmit={handleUnbanUser}
+        onCancel={closeModal}
+        isLoading={unbanUserLoading}
+      />
+      <DeleteModal
+        open={modal?.type === 'delete'}
+        onSubmit={handleDeleteUser}
+        onCancel={closeModal}
+        isLoading={unbanUserLoading}
+      />
+      <ClearContextModal
+        open={modal?.type === 'clearContext'}
+        onSubmit={handleClearUserContext}
         onCancel={closeModal}
         isLoading={unbanUserLoading}
       />

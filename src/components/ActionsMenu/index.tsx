@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import { HiDotsVertical } from 'react-icons/hi';
 import { createPortal } from 'react-dom';
-import Transition from '../Transition';
 import { Action } from './types';
 import { Plate } from './Plate';
 
@@ -24,12 +23,40 @@ export function ActionsMenu({ actions, className, closeOnClick }: Props) {
   });
 
   useEffect(() => {
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(({ isIntersecting }) => {
+        if (!isIntersecting) {
+          setOpened(false);
+        }
+      });
+    });
+
+    if (buttonRef.current) {
+      observer.observe(buttonRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     if (!promptRef.current || !buttonRef.current) return;
 
     const button = buttonRef.current.getBoundingClientRect();
     const prompt = promptRef.current.getBoundingClientRect();
 
-    promptRef.current.style.top = `${button.top + button.height}px`;
+    if (
+      window.scrollY + button.y + button.height + prompt.height >
+      window.scrollY + window.innerHeight
+    ) {
+      promptRef.current.style.top = `${
+        window.scrollY + button.y - prompt.height
+      }px`;
+    } else {
+      promptRef.current.style.top = `${
+        window.scrollY + button.y + button.height
+      }px`;
+    }
+
     if (button.left + prompt.width > document.body.clientWidth) {
       promptRef.current.style.left = `${button.left - prompt.width}px`;
     } else {

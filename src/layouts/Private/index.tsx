@@ -1,34 +1,42 @@
-import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 
-import { FiUsers } from 'react-icons/fi';
+import { BiUserCircle } from 'react-icons/bi';
 import { AiOutlineBarChart, AiOutlineMail } from 'react-icons/ai';
 import { TbClipboardList } from 'react-icons/tb';
+import { FiSettings } from 'react-icons/fi';
 
-import { Outlet, useLocation, useNavigate, Navigate } from 'react-router';
+import { Outlet, useLocation, Navigate } from 'react-router';
 
 import { useGetCurrentUserQuery } from '../../api/auth';
 
-const links = [
+const topLinks = [
   {
-    icon: <FiUsers />,
+    icon: <BiUserCircle className="w-full h-full" />,
     label: 'Пользователи',
     href: '/users',
   },
   {
-    icon: <AiOutlineMail />,
+    icon: <AiOutlineMail className="w-full h-full" />,
     label: 'Рассылки 🔧',
     href: '/mailings',
   },
   {
-    icon: <AiOutlineBarChart />,
+    icon: <AiOutlineBarChart className="w-full h-full" />,
     label: 'Статистика 🔧',
     href: '/stats',
   },
   {
-    icon: <TbClipboardList />,
+    icon: <TbClipboardList className="w-full h-full" />,
     label: 'Тарифы 🔧',
     href: '/tariffs',
+  },
+];
+
+const bottomLinks = [
+  {
+    icon: <FiSettings className="w-full h-full" />,
+    label: 'Настройки',
+    href: '/settings',
   },
 ];
 
@@ -37,7 +45,9 @@ export function PrivateLayout() {
 
   const { data: currentUser, isLoading } = useGetCurrentUserQuery();
 
-  const activeLink = links.find(link => link.href === location.pathname);
+  const activeLink = [...topLinks, ...bottomLinks].find(
+    link => link.href === location.pathname
+  );
 
   if (isLoading) return <div className="font-bold">Загрузка...</div>;
 
@@ -46,14 +56,16 @@ export function PrivateLayout() {
   }
 
   return (
-    <div className="w-full">
-      <Sidebar activeLink={activeLink?.href} links={links} />
-      <div className="md:ml-64">
-        <Header title={activeLink?.label} />
-        <main className="mt-4 mx-auto w-[calc(100%-32px)] max-w-[1200px]">
-          <Outlet />
-        </main>
-      </div>
+    <div className="w-full min-h-full flex">
+      <Sidebar
+        className="shrink-0 fixed left-0 top-0"
+        activeLink={activeLink?.href}
+        topLinks={topLinks}
+        bottomLinks={bottomLinks}
+      />
+      <main className="w-full mx-auto max-w-[1100px] px-6 py-9 grow">
+        <Outlet />
+      </main>
     </div>
   );
 }
