@@ -1,5 +1,5 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
+import Button from '../../components/Button';
 
 type SigninData = {
   email: string;
@@ -39,12 +39,9 @@ export function Signin({ isLoading = false, onSubmit }: Props) {
           {...register('password')}
         />
       </div>
-      <button
-        className="w-full px-4 py-2 active:scale-95 transition-all text-center gap-2 hover:bg-indigo-500 rounded-lg bg-indigo-600 text-white"
-        type="submit"
-      >
+      <Button disabled={isLoading} type="button">
         {!isLoading ? 'Войти' : 'Вход...'}
-      </button>
+      </Button>
     </form>
   );
 }

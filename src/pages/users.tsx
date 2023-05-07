@@ -13,6 +13,7 @@ import { UnbanModal } from '../business-components/Users/UnbanModal';
 import { InfoTile } from '../components/InfoTile';
 import { DeleteModal } from '../business-components/Users/DeleteModal';
 import { ClearContextModal } from '../business-components/Users/ClearContextModal';
+import Button from '../components/Button';
 
 // FIXME: Мне это решение не нравится
 type Modals =
@@ -120,13 +121,10 @@ export function UsersPage() {
     <div className="w-full">
       <header className="mb-10 flex items-center justify-between">
         <div className="text-2xl font-medium">Пользователи</div>
-        <button
-          type="button"
-          className="flex px-4 py-2 active:scale-95 transition-all  gap-2 hover:bg-indigo-500 rounded-lg bg-indigo-600 text-white items-center"
-        >
+        <Button type="button" className="flex items-center">
           <BsPlus className="w-6 h-6" />
           Добавить
-        </button>
+        </Button>
       </header>
       <div className="grid gap-6 grid-cols-3">
         <InfoTile title="Новые пользователи" value={27} />

@@ -35,7 +35,11 @@ export default function MailingsTable({ className = '', mailings }: Props) {
       <div>
         {mailings.length === 0 && <div>Рассылки отсутствуют</div>}
         {mailings.map(mailing => (
-          <MailingsTableItem mailing={mailing} actions={actions} />
+          <MailingsTableItem
+            key={mailing.id}
+            mailing={mailing}
+            actions={actions}
+          />
         ))}
       </div>
     </div>

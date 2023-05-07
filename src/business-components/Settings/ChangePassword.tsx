@@ -1,5 +1,5 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
+import Button from '../../components/Button';
 
 type ChangePasswordData = {
   prevPassword: string;
@@ -11,13 +11,12 @@ type Props = {
 };
 
 export default function ChangePassword({ onSubmit }: Props) {
-  const { handleSubmit, register } = useForm<ChangePasswordData>();
+  const { handleSubmit, register, formState } = useForm<ChangePasswordData>();
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="w-[400px] gap-4 flex flex-col"
     >
-      <h1 className="text-xl">Смена пароля</h1>
       <div className="w-full">
         <label htmlFor="prevPassword">Актуальный пароль</label>
         <input
@@ -38,12 +37,7 @@ export default function ChangePassword({ onSubmit }: Props) {
           {...register('newPassword')}
         />
       </div>
-      <button
-        className="w-full px-4 py-2 active:scale-95 transition-all text-center gap-2 hover:bg-indigo-500 rounded-lg bg-indigo-600 text-white"
-        type="submit"
-      >
-        Сменить пароль
-      </button>
+      <Button>Сменить пароль</Button>
     </form>
   );
 }

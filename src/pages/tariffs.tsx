@@ -1,3 +1,4 @@
+import Button from '../components/Button';
 import TariffCard from '../components/TariffCard';
 import { BsPlus } from 'react-icons/bs';
 
@@ -21,13 +22,10 @@ export function TariffsPage() {
     <div className="w-full">
       <header className="mb-10 flex items-center justify-between">
         <div className="text-2xl font-medium">Тарифы: {tariffs.length}</div>
-        <button
-          type="button"
-          className="flex px-4 py-2 active:scale-95 transition-all  gap-2 hover:bg-indigo-500 rounded-lg bg-indigo-600 text-white items-center"
-        >
+        <Button type="button" className="flex items-center">
           <BsPlus className="w-6 h-6" />
           Создать
-        </button>
+        </Button>
       </header>
 
       <div className="mt-4 grid gap-4 grid-cols-3">

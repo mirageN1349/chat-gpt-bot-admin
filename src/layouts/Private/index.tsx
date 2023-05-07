@@ -17,18 +17,18 @@ const topLinks = [
   },
   {
     icon: <AiOutlineMail className="w-full h-full" />,
-    label: 'Рассылки 🔧',
+    label: 'Рассылки',
     href: '/mailings',
+  },
+  {
+    icon: <TbClipboardList className="w-full h-full" />,
+    label: 'Тарифы',
+    href: '/tariffs',
   },
   {
     icon: <AiOutlineBarChart className="w-full h-full" />,
     label: 'Статистика 🔧',
     href: '/stats',
-  },
-  {
-    icon: <TbClipboardList className="w-full h-full" />,
-    label: 'Тарифы 🔧',
-    href: '/tariffs',
   },
 ];
 

@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { Modal } from '../../components/Modal';
 import { useState } from 'react';
 import { GrClose } from 'react-icons/gr';
+import Button from '../../components/Button';
 
 type CreateMailingDTO = {
   title: string;
@@ -39,7 +40,7 @@ export function CreateModal({ open, onSubmit, onCancel }: Props) {
             <GrClose />
           </button>
         </h3>
-        <div>
+        <div className="flex flex-col gap-2">
           <div className="w-full">
             <label htmlFor="title">Название</label>
             <input
@@ -72,18 +73,10 @@ export function CreateModal({ open, onSubmit, onCancel }: Props) {
           </div>
         </div>
         <div className="w-fill gap-2 flex items-center">
-          <button
-            type="submit"
-            className="px-4 bg-indigo-600 text-white py-2 rounded-md"
-          >
-            Создать
-          </button>
-          <button
-            onClick={onCancel}
-            className="px-4 text-white py-2 rounded-md bg-gray-500"
-          >
+          <Button type="submit">Создать</Button>
+          <Button onClick={onCancel} className="!bg-gray-500">
             Отмена
-          </button>
+          </Button>
         </div>
       </form>
     </Modal>

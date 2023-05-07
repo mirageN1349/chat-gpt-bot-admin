@@ -11,4 +11,12 @@
   #root {
     height: 100%;
   }
+
+  ::-moz-selection {
+    @apply bg-indigo-500 text-white;
+  }
+
+  ::selection {
+    @apply bg-indigo-500 text-white;
+  }
 }
