@@ -21,7 +21,7 @@ export function TariffsPage() {
   return (
     <>
       <header className="mb-10 flex items-center justify-between">
-        <div className="text-2xl font-medium">Тарифы: {tariffs.length}</div>
+        <h3 className="text-2xl font-medium">Тарифы: {tariffs.length}</h3>
         <Button type="button" className="flex items-center">
           <BsPlus className="w-6 h-6" />
           Создать
