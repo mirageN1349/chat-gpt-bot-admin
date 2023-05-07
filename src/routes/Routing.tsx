@@ -8,6 +8,7 @@ import { AuthPage } from '../pages/auth';
 import { PublicLayout } from '../layouts/Public';
 import { MailingsPage } from '../pages/mailings';
 import { SettingPage } from '../pages/settings';
+import StatisticsPage from '../pages/statistics';
 
 export default function Routing() {
   const privateRoutes = {
@@ -22,6 +23,7 @@ export default function Routing() {
       { path: '/settings', element: <SettingPage /> },
       { path: '/users', element: <UsersPage /> },
       { path: '/tariffs', element: <TariffsPage /> },
+      { path: '/stats', element: <StatisticsPage /> },
       {
         path: '/404',
         element: <Error404Page />,
