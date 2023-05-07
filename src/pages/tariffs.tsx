@@ -20,10 +20,7 @@ export function TariffsPage() {
   return (
     <div className="w-full">
       <header className="mb-10 flex items-center justify-between">
-        <div className="text-2xl font-medium">
-          Тарифы:
-          {tariffs.length}
-        </div>
+        <div className="text-2xl font-medium">Тарифы: {tariffs.length}</div>
         <button
           type="button"
           className="flex px-4 py-2 active:scale-95 transition-all  gap-2 hover:bg-indigo-500 rounded-lg bg-indigo-600 text-white items-center"

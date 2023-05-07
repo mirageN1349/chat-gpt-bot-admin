@@ -1,5 +1,7 @@
 import { BsPlus } from 'react-icons/bs';
 import MailingsTable from '../business-components/Mailing/Table';
+import { CreateModal } from '../business-components/Mailing/CreateModal';
+import { useState } from 'react';
 
 export type Mailing = {
   id: string;
@@ -51,19 +53,28 @@ const mockMailings: Mailing[] = [
 ];
 
 export function MailingsPage() {
+  const [createModal, setCreateModal] = useState(false);
   const mailings = mockMailings;
   return (
-    <div className="w-full">
-      <header className="mb-10 flex items-center justify-between">
-        <div className="text-2xl font-medium">Рассылки</div>
-        <button className="flex px-4 py-2 active:scale-95 transition-all  gap-2 hover:bg-indigo-500 rounded-lg bg-indigo-600 text-white items-center">
-          <BsPlus className="w-6 h-6" />
-          {' '}
-          Создать
-        </button>
-      </header>
+    <>
+      <div className="w-full">
+        <header className="mb-10 flex items-center justify-between">
+          <div className="text-2xl font-medium">Рассылки</div>
+          <button
+            onClick={() => setCreateModal(true)}
+            className="flex px-4 py-2 active:scale-95 transition-all  gap-2 hover:bg-indigo-500 rounded-lg bg-indigo-600 text-white items-center"
+          >
+            <BsPlus className="w-6 h-6" /> Создать
+          </button>
+        </header>
 
-      {mailings && <MailingsTable mailings={mailings} />}
-    </div>
+        {mailings && <MailingsTable mailings={mailings} />}
+      </div>
+      <CreateModal
+        open={createModal}
+        onCancel={() => setCreateModal(false)}
+        onSubmit={data => console.log(data)}
+      />
+    </>
   );
 }
