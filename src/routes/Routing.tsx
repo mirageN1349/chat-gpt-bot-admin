@@ -7,6 +7,7 @@ import { TariffsPage } from '../pages/tariffs';
 import { AuthPage } from '../pages/auth';
 import { PublicLayout } from '../layouts/Public';
 import { MailingsPage } from '../pages/mailings';
+import { SettingPage } from '../pages/settings';
 
 export default function Routing() {
   const privateRoutes = {
@@ -18,7 +19,7 @@ export default function Routing() {
         element: <MainPage />,
       },
       { path: '/mailings', element: <MailingsPage /> },
-      // { path: '/mailings', element: <CreateMailingsPage /> },
+      { path: '/settings', element: <SettingPage /> },
       { path: '/users', element: <UsersPage /> },
       { path: '/tariffs', element: <TariffsPage /> },
       {
