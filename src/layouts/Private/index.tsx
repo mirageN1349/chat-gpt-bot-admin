@@ -63,7 +63,7 @@ export function PrivateLayout() {
         topLinks={topLinks}
         bottomLinks={bottomLinks}
       />
-      <main className="w-full mx-auto max-w-[1100px] px-6 py-9 grow">
+      <main className="w-full ml-[340px] min-[1740px]:mx-auto max-w-[1060px] px-5 py-9 grow">
         <Outlet />
       </main>
     </div>
