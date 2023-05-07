@@ -58,21 +58,20 @@ export function MailingsPage() {
   const mailings = mockMailings;
   return (
     <>
-      <div className="w-full">
-        <header className="mb-10 flex items-center justify-between">
-          <div className="text-2xl font-medium">Рассылки</div>
-          <Button
-            onClick={() => setCreateModal(true)}
-            type="button"
-            className="flex items-center"
-          >
-            <BsPlus className="w-6 h-6" />
-            Создать
-          </Button>
-        </header>
+      <header className="mb-10 flex items-center justify-between">
+        <div className="text-2xl font-medium">Рассылки</div>
+        <Button
+          onClick={() => setCreateModal(true)}
+          type="button"
+          className="flex items-center"
+        >
+          <BsPlus className="w-6 h-6" />
+          Создать
+        </Button>
+      </header>
 
-        {mailings && <MailingsTable mailings={mailings} />}
-      </div>
+      {mailings && <MailingsTable mailings={mailings} />}
+
       <CreateModal
         open={createModal}
         onCancel={() => setCreateModal(false)}

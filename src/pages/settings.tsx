@@ -9,7 +9,7 @@ export function SettingPage() {
     setActiveTab(newTab);
   };
   return (
-    <div className="w-full">
+    <>
       <header className="mb-10 flex items-center justify-between">
         <div className="text-2xl font-medium">Настройки</div>
       </header>
@@ -31,6 +31,6 @@ export function SettingPage() {
       <Tabs.TabContainer activeTab={activeTab} tab="security">
         <ChangePassword onSubmit={data => console.log(data)} />
       </Tabs.TabContainer>
-    </div>
+    </>
   );
 }

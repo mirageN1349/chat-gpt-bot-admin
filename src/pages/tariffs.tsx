@@ -19,7 +19,7 @@ const tariffs = [
 
 export function TariffsPage() {
   return (
-    <div className="w-full">
+    <>
       <header className="mb-10 flex items-center justify-between">
         <div className="text-2xl font-medium">Тарифы: {tariffs.length}</div>
         <Button type="button" className="flex items-center">
@@ -38,6 +38,6 @@ export function TariffsPage() {
           />
         ))}
       </div>
-    </div>
+    </>
   );
 }

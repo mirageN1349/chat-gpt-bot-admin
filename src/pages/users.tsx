@@ -118,7 +118,7 @@ export function UsersPage() {
   };
 
   return (
-    <div className="w-full">
+    <>
       <header className="mb-10 flex items-center justify-between">
         <div className="text-2xl font-medium">Пользователи</div>
         <Button type="button" className="flex items-center">
@@ -178,6 +178,6 @@ export function UsersPage() {
         onCancel={closeModal}
         isLoading={unbanUserLoading}
       />
-    </div>
+    </>
   );
 }
