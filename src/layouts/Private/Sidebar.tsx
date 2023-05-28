@@ -31,7 +31,7 @@ export function Sidebar({
       <div className="w-full">
         <div className="px-4 flex items-center h-8 mb-9 font-semibold text-lg">
           <BsRobot className="h-8 w-8 mr-2" />
-          <h3 className="mt-1">NikoGPT</h3>
+          <h3 className="mt-1">NikaGPT</h3>
         </div>
         {topLinks?.map(link => (
           <Link
