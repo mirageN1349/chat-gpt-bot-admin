@@ -10,7 +10,8 @@ export function AuthPage() {
 
   const onSubmit = async (data: SigninDTO) => {
     try {
-      await signin(data).unwrap();
+      const res = await signin(data).unwrap();
+      if (!res.ok) return;
       navigate('/users', {
         replace: true,
       });

@@ -39,7 +39,7 @@ export function Signin({ isLoading = false, onSubmit }: Props) {
           {...register('password')}
         />
       </div>
-      <Button disabled={isLoading} type="button">
+      <Button disabled={isLoading} type="submit">
         {!isLoading ? 'Войти' : 'Вход...'}
       </Button>
     </form>
