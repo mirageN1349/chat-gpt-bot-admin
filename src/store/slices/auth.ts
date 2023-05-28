@@ -36,16 +36,21 @@ export const authSlice = createSlice({
       .addMatcher(
         authApi.endpoints.getCurrentUser.matchFulfilled,
         (state, action) => {
-          state.isAuth = true;
-          state.currentUser = action.payload;
-        },
+          if (action.payload.ok) {
+            state.isAuth = true;
+            state.currentUser = action.payload.data;
+          } else {
+            state.isAuth = false;
+            state.currentUser = null;
+          }
+        }
       )
       .addMatcher(
         authApi.endpoints.getCurrentUser.matchRejected,
         (state, action) => {
           if (action.error.name === 'ConditionError') return;
           state.isAuth = false;
-        },
+        }
       );
   },
 });
