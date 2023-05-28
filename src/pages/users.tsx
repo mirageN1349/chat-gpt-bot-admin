@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { BsPlus, BsSearch } from 'react-icons/bs';
 
@@ -14,6 +14,8 @@ import { InfoTile } from '../components/InfoTile';
 import { DeleteModal } from '../business-components/Users/DeleteModal';
 import { ClearContextModal } from '../business-components/Users/ClearContextModal';
 import Button from '../components/Button';
+import { useDebounce } from '../hooks/useDebounce';
+import Loader from '../components/Loader';
 
 // FIXME: Мне это решение не нравится
 type Modals =
@@ -34,8 +36,23 @@ type Modals =
       userId: string;
     };
 
+const PAGE_SIZE = 10;
+
 export function UsersPage() {
-  const { data: users, isLoading } = useGetUsersQuery();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+
+  const {
+    data: users,
+    isLoading: usersListLoading,
+    isFetching: usersListFetching,
+  } = useGetUsersQuery({
+    offset: currentPage * PAGE_SIZE,
+    limit: PAGE_SIZE,
+    searchText: debouncedSearchQuery || '',
+  });
   const [modal, setModal] = useState<Modals | null>(null);
 
   const [banUser, { isLoading: banUserLoading }] = useBanUserMutation();
@@ -117,6 +134,11 @@ export function UsersPage() {
     setModal(null);
   };
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(0);
+  };
+
   return (
     <>
       <header className="mb-10 flex items-center justify-between">
@@ -134,20 +156,39 @@ export function UsersPage() {
       <div className="my-8 flex justify-end">
         <label
           htmlFor="search-input"
-          className="rounded-lg w-[300px] gap-2 py-2 px-4 placeholder:text-[#8C8E90] flex items-center border border-[#E0E0E0]"
+          className="rounded-lg w-[300px] gap-2 relative py-2 px-4 placeholder:text-[#8C8E90] flex items-center border border-[#E0E0E0]"
         >
-          <BsSearch className="text-[#8C8E90]" />
+          <BsSearch className="text-[#8C8E90] shrink-0" />
           <input
+            onChange={handleSearch}
             id="search-input"
-            className="outline-none"
+            className="grow outline-none"
             placeholder="Поиск"
           />
+
+          {usersListFetching && (
+            <Loader.Spinner size={24} className="absolute right-4 shrink-0" />
+          )}
         </label>
       </div>
-      {isLoading && <div>Загрузка...</div>}
+      {usersListLoading && <div>Загрузка...</div>}
       {users && (
         <UsersTable
-          users={users}
+          pager={{
+            onNext: () => {
+              if (currentPage - 1 < Math.ceil(users.count / PAGE_SIZE)) {
+                setCurrentPage(prev => prev + 1);
+              }
+            },
+            onPrev: () => {
+              if (currentPage !== 0) setCurrentPage(prev => prev - 1);
+            },
+            size: PAGE_SIZE,
+            total: Math.ceil(users.count / PAGE_SIZE),
+            current: currentPage + 1,
+            hasNextPage: currentPage - 1 < Math.ceil(users.count / PAGE_SIZE),
+          }}
+          users={users.data}
           onBanUser={onBanUser}
           onDeleteUsers={onDeleteUser}
           onClearUsersContext={onClearUserContext}

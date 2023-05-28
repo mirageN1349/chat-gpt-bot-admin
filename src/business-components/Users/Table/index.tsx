@@ -1,7 +1,19 @@
 import { GetUsersDTO } from '../../../@types/dto/users';
+import Button from '../../../components/Button';
 import { UsersTableItem } from './Item';
+import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
+
+type Pager = {
+  size: number;
+  total: number;
+  current: number;
+  hasNextPage: boolean;
+  onNext: () => void;
+  onPrev: () => void;
+};
 
 type Props = {
+  pager: Pager;
   className?: string;
   users: GetUsersDTO;
   onBanUser: (banData: { id: string; isBanned: boolean }) => void;
@@ -10,6 +22,7 @@ type Props = {
 };
 
 export default function UsersTable({
+  pager,
   className,
   users,
   onDeleteUsers,
@@ -42,7 +55,7 @@ export default function UsersTable({
 
   return (
     <div className={`${className} rounded-xl border-2 border-[#ECECEE] w-full`}>
-      <div className="border-b bg-[#F9F9FD] p-5 px-5 flex justify-between border-[#ECECEE]">
+      <div className="border-b bg-[#F9F9FD] py-4 px-5 flex justify-between border-[#ECECEE]">
         <div className="w-[calc((100%-40px)/4)] text-left">TelegramId</div>
         <div className="w-[calc((100%-40px)/4)] text-left">Имя</div>
         <div className="w-[calc((100%-40px)/4)] text-left">
@@ -55,7 +68,7 @@ export default function UsersTable({
       </div>
       <div>
         {users.length === 0 && (
-          <div className="text-white">Пользователи отсутствуют</div>
+          <div className="mx-4 my-2">Пользователи не найдены</div>
         )}
         {users.map(user => (
           <UsersTableItem
@@ -65,6 +78,29 @@ export default function UsersTable({
           />
         ))}
       </div>
+      {users.length !== 0 && (
+        <div className="bg-[#F9F9FD] flex items-center justify-between py-4 px-5">
+          <Button
+            className="text-white"
+            disabled={pager.current === 1}
+            onClick={pager.onPrev}
+          >
+            <BiChevronLeft className="w-6 h-6" />
+          </Button>
+
+          <div className="text-center text-lg">
+            {pager.current}/{pager.total}
+          </div>
+
+          <Button
+            className="text-white"
+            disabled={pager.current >= pager.total}
+            onClick={pager.onNext}
+          >
+            <BiChevronRight className="w-6 h-6" />
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

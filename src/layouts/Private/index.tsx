@@ -5,9 +5,9 @@ import { AiOutlineBarChart, AiOutlineMail } from 'react-icons/ai';
 import { TbClipboardList } from 'react-icons/tb';
 import { FiSettings } from 'react-icons/fi';
 
-import { Outlet, useLocation, Navigate, useNavigate } from 'react-router';
+import { Outlet, useLocation, useNavigate } from 'react-router';
 
-import { useGetCurrentUserQuery, useSignoutMutation } from '../../api/auth';
+import { useSignoutMutation } from '../../api/auth';
 
 const topLinks = [
   {
@@ -17,17 +17,17 @@ const topLinks = [
   },
   {
     icon: <AiOutlineMail className="w-full h-full" />,
-    label: 'Рассылки',
+    label: 'Рассылки 🛠',
     href: '/mailings',
   },
   {
     icon: <TbClipboardList className="w-full h-full" />,
-    label: 'Тарифы',
+    label: 'Тарифы 🛠',
     href: '/tariffs',
   },
   {
     icon: <AiOutlineBarChart className="w-full h-full" />,
-    label: 'Статистика 🔧',
+    label: 'Статистика 🛠',
     href: '/stats',
   },
 ];

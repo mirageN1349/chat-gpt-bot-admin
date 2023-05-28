@@ -22,7 +22,7 @@ export default function Routing() {
     children: [
       {
         path: '/',
-        element: <MainPage />,
+        element: <Navigate to="/users" />,
       },
       { path: '/mailings', element: <MailingsPage /> },
       { path: '/settings', element: <SettingPage /> },

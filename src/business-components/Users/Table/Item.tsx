@@ -12,10 +12,10 @@ export function UsersTableItem({ user, actions }: Props) {
     dateStyle: 'short',
   });
   return (
-    <div className="w-full flex p-5 px-5 justify-between border-b-2 border-[#ECECEE]">
-      <div className="w-[calc((100%-40px)/4)]">{user.telegramId}</div>
+    <div className="w-full flex py-5 px-5 justify-between items-center border-b-2 border-[#ECECEE]">
+      <div className="w-[calc((100%-40px)/4)]">{user.telegramId || '—'}</div>
       <div className="w-[calc((100%-40px)/4)]">
-        <div className="">{user.telegramName}</div>
+        <div className="">{user.telegramName || '—'}</div>
         <div className="text-gray-500 text-sm">{user.telegramUsername}</div>
       </div>
       <div className="w-[calc((100%-40px)/4)]">{formattedDate}</div>

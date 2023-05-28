@@ -3,20 +3,35 @@ import { BanUserDTO, GetUsersDTO, UnbanUserDTO } from '../@types/dto/users';
 import { baseQueryWithReauth } from './utils/baseQuery';
 import { ResponseType } from '../@types/dto/commonResponse';
 
-type GetUsersResponse = ResponseType<GetUsersDTO, true>;
+type GetUsersResponse = ResponseType<GetUsersDTO, true> & {
+  count: number;
+};
+
+type GetUsersRequest =
+  | {
+      offset?: number;
+      limit?: number;
+      searchText?: string;
+    }
+  | undefined;
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
   baseQuery: baseQueryWithReauth,
   tagTypes: ['users'],
   endpoints: builder => ({
-    getUsers: builder.query<GetUsersResponse['data'], void>({
-      query: () => ({
+    getUsers: builder.query<GetUsersResponse, GetUsersRequest>({
+      query: params => ({
         url: '/users',
         method: 'GET',
+        params,
       }),
       providesTags: ['users'],
-      transformResponse: (res: GetUsersResponse) => res.data,
+      transformResponse: (data, meta) => ({
+        ...(data as GetUsersResponse),
+        // FIXME: Убрать any)))
+        count: Number((meta as any).response.headers.get('X-Total-Count')),
+      }),
     }),
     banUser: builder.mutation<void, BanUserDTO>({
       query: ({ id, ...body }) => ({
@@ -48,4 +63,5 @@ export const usersApi = createApi({
   }),
 });
 
-export const { useGetUsersQuery, useBanUserMutation, useUnbanUserMutation } = usersApi;
+export const { useGetUsersQuery, useBanUserMutation, useUnbanUserMutation } =
+  usersApi;
