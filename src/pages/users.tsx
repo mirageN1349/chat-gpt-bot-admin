@@ -61,14 +61,20 @@ export function UsersPage() {
 
   const { data: registeredUsersStats, isLoading: registeredUsersLoading } =
     useGetUsersByPeriodQuery({
-      endDt: startOfDay.toISOString(),
-      startDt: startOfDay.toISOString(),
+      endDt: endOfDay,
+      startDt: startOfDay,
     });
 
-  const { data: messagesStats, isLoading: messagesStatsLoading } =
+  const { data: dayMessagesStats, isLoading: dayMessagesStatsLoading } =
     useGetMessagesByPeriodQuery({
-      endDt: startOfDay.toISOString(),
-      startDt: startOfDay.toISOString(),
+      endDt: endOfDay,
+      startDt: startOfDay,
+    });
+
+  const { data: allMessagesStats, isLoading: allMessagesStatsLoading } =
+    useGetMessagesByPeriodQuery({
+      endDt: endOfDay,
+      startDt: new Date('01-01-2023'),
     });
 
   const {
@@ -175,9 +181,9 @@ export function UsersPage() {
           Добавить 🛠
         </Button>
       </header>
-      <div className="grid gap-6 grid-cols-3">
+      <div className="grid gap-6 grid-cols-4">
         <InfoTile
-          title="Новые пользователи за сегодня"
+          title="Новые пользователи"
           value={registeredUsersStats?.count}
           loading={registeredUsersLoading}
         />
@@ -187,9 +193,14 @@ export function UsersPage() {
           value={totalUsersCount?.count || 0}
         />
         <InfoTile
-          title="Новые сообщения за сегодня"
-          value={messagesStats?.count}
-          loading={messagesStatsLoading}
+          title="Новые сообщения"
+          value={dayMessagesStats?.count}
+          loading={dayMessagesStatsLoading}
+        />
+        <InfoTile
+          title="Всего сообщений"
+          value={allMessagesStats?.count}
+          loading={allMessagesStatsLoading}
         />
       </div>
       <div className="my-8 flex justify-between">

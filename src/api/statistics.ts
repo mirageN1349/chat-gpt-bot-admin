@@ -3,13 +3,13 @@ import { baseQueryWithReauth } from './utils/baseQuery';
 import { ResponseType } from '../@types/dto/commonResponse';
 
 type GetUsersByPeriodRequest = {
-  startDt: string;
-  endDt: string;
+  startDt: Date;
+  endDt: Date;
 };
 
 type GetMessagesByPeriodRequest = {
-  startDt: string;
-  endDt: string;
+  startDt: Date;
+  endDt: Date;
 };
 
 type GetMessagesByPeriodResponse = ResponseType & {
