@@ -1,19 +1,23 @@
 import { ReactNode } from 'react';
 import { BsArrowUp } from 'react-icons/bs';
 import { ActionsMenu } from './ActionsMenu';
+import Loader from './Loader';
 
 type Props = {
   title: string;
   value: ReactNode;
   percentage?: number;
+  loading?: boolean;
 };
 
-export function InfoTile({ title, value, percentage }: Props) {
+export function InfoTile({ title, value, percentage, loading = false }: Props) {
   return (
     <div className="p-6 flex border border-[#ECECEE] rounded-lg justify-between">
       <div>
         <div className="text-gray-600 font-medium text-sm">{title}</div>
-        <div className="mt-3 text-4xl font-medium">{value}</div>
+        <div className="mt-3 text-4xl font-medium">
+          {loading ? <Loader.Spinner size={32} /> : value}
+        </div>
       </div>
       <div className="h-full flex flex-col justify-between items-end">
         <ActionsMenu

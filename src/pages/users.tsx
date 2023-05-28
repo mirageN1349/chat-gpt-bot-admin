@@ -4,6 +4,7 @@ import { BsPlus, BsSearch } from 'react-icons/bs';
 
 import {
   useBanUserMutation,
+  useGetTotalCountQuery,
   useGetUsersQuery,
   useUnbanUserMutation,
 } from '../api/users';
@@ -16,6 +17,11 @@ import { ClearContextModal } from '../business-components/Users/ClearContextModa
 import Button from '../components/Button';
 import { useDebounce } from '../hooks/useDebounce';
 import Loader from '../components/Loader';
+import { BiFilterAlt } from 'react-icons/bi';
+import {
+  useGetMessagesByPeriodQuery,
+  useGetUsersByPeriodQuery,
+} from '../api/statistics';
 
 // FIXME: Мне это решение не нравится
 type Modals =
@@ -43,6 +49,27 @@ export function UsersPage() {
   const [currentPage, setCurrentPage] = useState(0);
 
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
+
+  const startOfDay = new Date();
+  startOfDay.setHours(0, 0, 0, 0);
+
+  const endOfDay = new Date();
+  endOfDay.setHours(23, 59, 59, 999);
+
+  const { data: totalUsersCount, isLoading: usersCountLoading } =
+    useGetTotalCountQuery();
+
+  const { data: registeredUsersStats, isLoading: registeredUsersLoading } =
+    useGetUsersByPeriodQuery({
+      endDt: startOfDay.toISOString(),
+      startDt: startOfDay.toISOString(),
+    });
+
+  const { data: messagesStats, isLoading: messagesStatsLoading } =
+    useGetMessagesByPeriodQuery({
+      endDt: startOfDay.toISOString(),
+      startDt: startOfDay.toISOString(),
+    });
 
   const {
     data: users,
@@ -145,15 +172,31 @@ export function UsersPage() {
         <div className="text-2xl font-medium">Пользователи</div>
         <Button type="button" className="flex items-center">
           <BsPlus className="w-6 h-6" />
-          Добавить
+          Добавить 🛠
         </Button>
       </header>
       <div className="grid gap-6 grid-cols-3">
-        <InfoTile title="Новые пользователи" value={27} />
-        <InfoTile title="Всего пользователей" value={1584} percentage={5} />
-        <InfoTile title="Новых сообщений" value={268} percentage={-12} />
+        <InfoTile
+          title="Новые пользователи за сегодня"
+          value={registeredUsersStats?.count}
+          loading={registeredUsersLoading}
+        />
+        <InfoTile
+          title="Всего пользователей"
+          loading={usersCountLoading}
+          value={totalUsersCount?.count || 0}
+        />
+        <InfoTile
+          title="Новые сообщения за сегодня"
+          value={messagesStats?.count}
+          loading={messagesStatsLoading}
+        />
       </div>
-      <div className="my-8 flex justify-end">
+      <div className="my-8 flex justify-between">
+        <Button type="button" className="text-white flex items-center">
+          <BiFilterAlt />
+          Фильтры 🛠
+        </Button>
         <label
           htmlFor="search-input"
           className="rounded-lg w-[300px] gap-2 relative py-2 px-4 placeholder:text-[#8C8E90] flex items-center border border-[#E0E0E0]"

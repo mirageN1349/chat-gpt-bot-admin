@@ -7,6 +7,8 @@ type GetUsersResponse = ResponseType<GetUsersDTO, true> & {
   count: number;
 };
 
+type GetUsersTotalCount = ResponseType & { count: number };
+
 type GetUsersRequest =
   | {
       offset?: number;
@@ -29,6 +31,17 @@ export const usersApi = createApi({
       providesTags: ['users'],
       transformResponse: (data, meta) => ({
         ...(data as GetUsersResponse),
+        // FIXME: Убрать any)))
+        count: Number((meta as any).response.headers.get('X-Total-Count')),
+      }),
+    }),
+    getTotalCount: builder.query<GetUsersTotalCount, void>({
+      query: () => ({
+        url: '/users/total-count',
+        method: 'GET',
+      }),
+      transformResponse: (data, meta) => ({
+        ...(data as GetUsersTotalCount),
         // FIXME: Убрать any)))
         count: Number((meta as any).response.headers.get('X-Total-Count')),
       }),
@@ -63,5 +76,9 @@ export const usersApi = createApi({
   }),
 });
 
-export const { useGetUsersQuery, useBanUserMutation, useUnbanUserMutation } =
-  usersApi;
+export const {
+  useGetUsersQuery,
+  useGetTotalCountQuery,
+  useBanUserMutation,
+  useUnbanUserMutation,
+} = usersApi;

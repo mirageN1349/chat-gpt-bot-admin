@@ -7,12 +7,12 @@ type Props = {
 };
 
 export function PrivateRoute({ children }: Props) {
-  // const { data: currentUser, isLoading } = useGetCurrentUserQuery();
-  // if (isLoading) return <div className="font-bold">Загрузка...</div>;
+  const { data: currentUser, isLoading } = useGetCurrentUserQuery();
+  if (isLoading) return <div className="font-bold">Загрузка...</div>;
 
-  // if (!isLoading && !currentUser) {
-  //   return <Navigate to="/auth/sigin" replace />;
-  // }
+  if (!isLoading && !currentUser) {
+    return <Navigate to="/auth/sigin" replace />;
+  }
 
   return children;
 }
