@@ -11,12 +11,13 @@ export function AuthPage() {
   const onSubmit = async (data: SigninDTO) => {
     try {
       const res = await signin(data).unwrap();
-      if (!res.ok) return;
-      navigate('/users', {
-        replace: true,
-      });
-    } catch (error) {
-      console.error(error);
+      if (res.ok) {
+        navigate('/users', {
+          replace: true,
+        });
+      }
+    } catch (responseError) {
+      console.error(responseError);
     }
   };
 

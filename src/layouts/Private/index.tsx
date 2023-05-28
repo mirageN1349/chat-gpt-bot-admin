@@ -5,9 +5,9 @@ import { AiOutlineBarChart, AiOutlineMail } from 'react-icons/ai';
 import { TbClipboardList } from 'react-icons/tb';
 import { FiSettings } from 'react-icons/fi';
 
-import { Outlet, useLocation, Navigate } from 'react-router';
+import { Outlet, useLocation, Navigate, useNavigate } from 'react-router';
 
-import { useGetCurrentUserQuery } from '../../api/auth';
+import { useGetCurrentUserQuery, useSignoutMutation } from '../../api/auth';
 
 const topLinks = [
   {
@@ -41,19 +41,27 @@ const bottomLinks = [
 ];
 
 export function PrivateLayout() {
+  const navigate = useNavigate();
   const location = useLocation();
 
-  const { data: currentUser, isLoading } = useGetCurrentUserQuery();
+  const [signout] = useSignoutMutation();
+
+  const handleSignout = async () => {
+    try {
+      const response = await signout().unwrap();
+      if (response.ok) {
+        navigate('/auth/signin', {
+          replace: true,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const activeLink = [...topLinks, ...bottomLinks].find(
     link => link.href === location.pathname
   );
-
-  // if (isLoading) return <div className="font-bold">Загрузка...</div>;
-
-  // if (!isLoading && !currentUser) {
-  //   return <Navigate to="/auth/sigin" replace />;
-  // }
 
   return (
     <div className="w-full min-h-full flex">
@@ -62,6 +70,7 @@ export function PrivateLayout() {
         activeLink={activeLink?.href}
         topLinks={topLinks}
         bottomLinks={bottomLinks}
+        onSignout={handleSignout}
       />
       <main className="w-full ml-[340px] min-[1740px]:mx-auto max-w-[1060px] px-5 py-9 grow">
         <Outlet />

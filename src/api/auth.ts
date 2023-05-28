@@ -4,14 +4,11 @@ import { CurrentUserDTO, SigninDTO, SignupDTO } from '../@types/dto/auth';
 import { baseQueryWithReauth } from './utils/baseQuery';
 import { ResponseType } from '../@types/dto/commonResponse';
 
-type SigninResponse = ResponseType<
-  {
-    accessToken: string;
-  },
-  true
->;
-
-type CurrentUserResponse = ResponseType<CurrentUserDTO, true>;
+type SigninResponse = ResponseType<{
+  accessToken: string;
+}>;
+type SignoutResponse = ResponseType;
+type CurrentUserResponse = ResponseType<CurrentUserDTO>;
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -24,31 +21,35 @@ export const authApi = createApi({
         body,
       }),
     }),
-    signup: builder.mutation<SigninResponse['data'], SignupDTO>({
+    signup: builder.mutation<SigninResponse, SignupDTO>({
       query: body => ({
         url: 'auth/signup',
         method: 'POST',
         body,
       }),
-      transformResponse: (res: SigninResponse) => res.data,
     }),
-    refresh: builder.mutation<SigninResponse['data'], void>({
+    refresh: builder.mutation<SigninResponse, void>({
       query: body => ({
         url: 'auth/refresh',
         method: 'POST',
         body,
       }),
-      transformResponse: (res: SigninResponse) => res.data,
     }),
-    getCurrentUser: builder.query<CurrentUserResponse['data'], void>({
+    signout: builder.mutation<SignoutResponse, void>({
+      query: () => ({
+        url: 'auth/signout',
+        method: 'POST',
+      }),
+    }),
+    getCurrentUser: builder.query<CurrentUserResponse, void>({
       query: body => ({
         url: 'auth/current-user',
         method: 'GET',
         body,
       }),
-      transformResponse: (res: CurrentUserResponse) => res.data,
     }),
   }),
 });
 
-export const { useSigninMutation, useGetCurrentUserQuery } = authApi;
+export const { useSigninMutation, useGetCurrentUserQuery, useSignoutMutation } =
+  authApi;

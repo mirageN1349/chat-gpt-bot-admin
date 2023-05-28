@@ -9,11 +9,16 @@ import { PublicLayout } from '../layouts/Public';
 import { MailingsPage } from '../pages/mailings';
 import { SettingPage } from '../pages/settings';
 import StatisticsPage from '../pages/statistics';
+import { PrivateRoute } from './PrivateRoute';
 
 export default function Routing() {
   const privateRoutes = {
     path: '',
-    element: <PrivateLayout />,
+    element: (
+      <PrivateRoute>
+        <PrivateLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: '/',

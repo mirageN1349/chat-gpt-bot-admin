@@ -14,6 +14,7 @@ type Props = {
   activeLink?: string;
   topLinks?: SidebarLink[];
   bottomLinks?: SidebarLink[];
+  onSignout: () => void;
 };
 
 export function Sidebar({
@@ -21,6 +22,7 @@ export function Sidebar({
   topLinks,
   bottomLinks,
   activeLink,
+  onSignout,
 }: Props) {
   return (
     <aside
@@ -64,6 +66,7 @@ export function Sidebar({
         <button
           type="button"
           className="border-2 rounded-xl border-[#ECECEE] text-black/80 p-4 mt-8 flex w-full items-center font-semibold"
+          onClick={onSignout}
         >
           <BiLogOut className="w-6 h-6 mr-2" />
           Выход
